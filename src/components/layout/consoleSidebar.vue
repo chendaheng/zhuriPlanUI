@@ -159,6 +159,10 @@
         <el-menu-item index="/planservice/rangeimport"><i class="el-icon-document"></i>导入系列</el-menu-item>
         <el-menu-item index="/planservice/stylegroupmanagement"><i class="el-icon-document"></i>款式组管理</el-menu-item>
         <el-menu-item index="/planservice/stylegroupadd"><i class="el-icon-document"></i>添加款式组</el-menu-item>
+        <el-menu-item index="/planservice/stylemanagement"><i class="el-icon-document"></i>款式管理</el-menu-item>
+        <el-menu-item index="/planservice/styleadd"><i class="el-icon-document"></i>添加款式</el-menu-item>
+        <el-menu-item index="/planservice/styleimport"><i class="el-icon-document"></i>导入款式</el-menu-item>
+        <el-menu-item index="/planservice/stylebindstylegroup"><i class="el-icon-document"></i>绑定款式组</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>

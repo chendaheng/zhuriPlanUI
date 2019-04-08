@@ -128,7 +128,7 @@ export default {
   },
   created: function () {
     const that = this;
-    console.log("进入系列添加页面");
+    console.log("进入添加系列页面");
   },
   methods: {
     // 保存按钮点击

@@ -99,6 +99,10 @@ const RangeAdd = r => require.ensure([], () => r(require('../page/PlanService/Ra
 const RangeImport = r => require.ensure([], () => r(require('../page/PlanService/RangeImport')), 'RangeImport');
 const StyleGroupManagement = r => require.ensure([], () => r(require('../page/PlanService/StyleGroupManagement')), 'StyleGroupManagement');
 const StyleGroupAdd = r => require.ensure([], () => r(require('../page/PlanService/StyleGroupAdd')), 'StyleGroupAdd');
+const StyleManagement = r => require.ensure([], () => r(require('../page/PlanService/StyleManagement')), 'StyleManagement');
+const StyleAdd = r => require.ensure([], () => r(require('../page/PlanService/StyleAdd')), 'StyleAdd');
+const StyleImport = r => require.ensure([], () => r(require('../page/PlanService/StyleImport')), 'StyleImport');
+const StyleBindStyleGroup = r => require.ensure([], () => r(require('../page/PlanService/StyleBindStyleGroup')), 'StyleBindStyleGroup');
 // -------------------------------------------- 路由配置部分 --------------------------------------------
 export default [{
     path: Config.route.login,
@@ -420,6 +424,38 @@ export default [{
         component: StyleGroupAdd,
         meta: {
           bcrumd: ['计划服务', '添加款式组']
+        }
+      },
+      { // 款式管理
+        path: '/planservice/stylemanagement',
+        name: 'StyleManagement',
+        component: StyleManagement,
+        meta: {
+          bcrumd: ['计划服务', '款式管理']
+        }
+      },
+      { // 添加款式
+        path: '/planservice/styleadd',
+        name: 'StyleAdd',
+        component: StyleAdd,
+        meta: {
+          bcrumd: ['计划服务', '添加款式']
+        }
+      },
+      { // 导入款式
+        path: '/planservice/styleimport',
+        name: 'StyleImport',
+        component: StyleImport,
+        meta: {
+          bcrumd: ['计划服务', '导入款式']
+        }
+      },
+      { // 绑定款式组
+        path: '/planservice/stylebindstylegroup',
+        name: 'StyleBindStyleGroup',
+        component: StyleBindStyleGroup,
+        meta: {
+          bcrumd: ['计划服务', '绑定款式组']
         }
       },
       { // 默认路由

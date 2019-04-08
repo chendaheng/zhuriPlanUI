@@ -58,8 +58,8 @@
         </el-col>
         <el-col :span="8">
           <div class="inputBox">
-            <div class="label">款式组名</div>
-            <el-input v-model="data.styleGroupName" clearable placeholder="请输入"></el-input>
+            <div class="label">订单款号</div>
+            <el-input v-model="data.styleNumber" clearable placeholder="请输入"></el-input>
           </div>
         </el-col>
       </el-row>
@@ -84,7 +84,7 @@ export default {
         brandName: "",
         clothingType: "",
         rangeName: "",
-        styleGroupName: "",
+        styleNumber: "",
       },
       options: {
         customerNameOptions: [
@@ -140,7 +140,7 @@ export default {
   },
   created: function () {
     const that = this;
-    console.log("进入添加款式组页面");
+    console.log("进入添加款式页面");
   },
   methods: {
     // 保存按钮点击

@@ -117,7 +117,7 @@ export default {
   },
   created: function () {
     const that = this;
-    console.log("进入系列导入页面");
+    console.log("进入导入系列页面");
   },
   methods: {
     // 保存按钮点击
