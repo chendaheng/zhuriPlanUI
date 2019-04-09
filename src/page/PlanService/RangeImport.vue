@@ -50,9 +50,6 @@
           </div>
         </el-col>
         <el-col :span="2">
-          <el-button type="primary" @click="findFile">浏览
-            <i class="el-icon-upload el-icon--right"></i>
-          </el-button>
         </el-col>
       </el-row>
       <el-row style="margin: 50px 0 10px 0">
@@ -113,6 +110,9 @@ export default {
           },
         ],
       },
+      fileList:[
+
+      ],
     };
   },
   created: function () {

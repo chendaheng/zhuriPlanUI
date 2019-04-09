@@ -86,7 +86,7 @@
       </el-row>
       <el-row style="margin: 50px 0 10px 0">
         <el-col :span="3" :offset="10">
-          <el-button type="primary" @click="store">保存</el-button>
+          <el-button type="primary" @click="store" :disabled="controlData.storeDisabled">保存</el-button>
         </el-col>
         <el-col :span="3">
           <el-button type="info" @click="cancel">取消</el-button>
@@ -112,7 +112,6 @@ export default {
             styleNumber: "10190114(CX1903)",
           },
         ],
-        
       },
       options: {
         customerNameOptions: [
@@ -170,22 +169,39 @@ export default {
           },
         ]
       },
+      controlData: {
+        storeDisabled: false,
+      },
     };
   },
   created: function () {
     const that = this;
-    console.log("进入添加款式组页面");
+    console.log("进入绑定款式组页面");
+    var result = {};
+    result = that.$route.query;
+    if (result.hasOwnProperty("bindData")){
+      console.log("传过来的绑定数据为" + result["bindData"]);
+      that.data.tableData = result["bindData"];
+    }
   },
   methods: {
     // 保存按钮点击
     store(){
       const that = this;
       console.log("保存按钮点击");
+      this.$message({
+        message: '成功绑定款式',
+        type: 'success'
+      });
+      that.controlData.storeDisabled = true;
     },
     // 取消按钮点击
     cancel(){
       const that = this;
       console.log("取消按钮点击");
+      that.$router.push({
+        path: `/PlanService/StyleManagement`,
+      });
     }
   }
 }

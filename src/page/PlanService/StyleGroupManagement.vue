@@ -84,19 +84,20 @@
       <div class="table">
         <el-row :gutter="10">
           <el-col :span="4">
-            <el-button type="primary">添加款式组</el-button>
+            <el-button type="primary" @click="addStyleGroup">添加款式组</el-button>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary">删除款式组</el-button>
+            <el-button type="primary" @click="deleteStyleGroup">删除款式组</el-button>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary">解绑款式组</el-button>
+            <el-button type="primary" @click="unbindStyleGroup"> 解绑款式组</el-button>
           </el-col>
         </el-row>
         <el-table
           :data="data.tableData"
           max-height="400"
           border
+          @selection-change="changeCheckBoxFun"
           :stripe="true"
           :highlight-current-row="true"
           style="width: 100%; margin-top: 20px">
@@ -223,7 +224,8 @@ export default {
             addTime: "2019-01-01 10:15:01",
           }
         ]
-      }
+      },
+      multipleSelection: [],
     };
   },
   created: function () {
@@ -237,11 +239,96 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
+    // 选择框改变监控
+    changeCheckBoxFun(val){
+      const that = this;
+      that.multipleSelection = val;
+      console.log("changeCheckBox所选中的内容如下");
+      console.log(that.multipleSelection);
+      console.log("changeCheckBox所选中的内容的长度为",that.multipleSelection.length);
+    },
     // 搜索按钮点击
     handleSearch(){
       const that = this;
       console.log('搜索按钮点击');
-    }
+    },
+    // 添加款式组
+    addStyleGroup(){
+      const that = this;
+      console.log('添加款式组按钮点击');
+      that.$router.push({
+        path: `/PlanService/StyleGroupAdd`,
+      });
+    },
+    // 删除款式组
+    deleteStyleGroup(){
+      const that = this;
+      console.log('删除款式组按钮点击');
+      if(that.multipleSelection.length ===0){
+        this.$message({
+          message: '请选择要删除的款式组',
+          type: 'warning'
+        });
+      }
+      else if(that.multipleSelection.length >= 1){
+        console.log("有" + that.multipleSelection.length + "条数据被选中");
+        this.$confirm("删除所选的" + that.multipleSelection.length + "条款式组信息, 是否继续?", "提示", {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          for (var i = 0; i < that.multipleSelection.length; i++){
+            var result = that.multipleSelection[i];
+            var delIndex = result["index"];
+            console.log('delIndex',delIndex);
+            for(var j = 0; j < that.data.tableData.length; j++){
+              var delResult = that.data.tableData[j];
+              if (delResult["index"] === delIndex){
+                that.data.tableData.splice(j,1);
+              }
+            }
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      }
+    },
+    // 解绑款式组
+    unbindStyleGroup(){
+      const that = this;
+      console.log('解绑款式组按钮点击');
+      if(that.multipleSelection.length ===0){
+        this.$message({
+          message: '请选择要解绑的款式组',
+          type: 'warning'
+        });
+      }
+      else if(that.multipleSelection.length >= 1){
+        console.log("有" + that.multipleSelection.length + "条数据被选中");
+        this.$confirm("解绑所选的" + that.multipleSelection.length + "条款式组, 是否继续?", "提示", {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '解绑成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消解绑'
+          });          
+        });
+      }
+    },
   }
 }
 </script>

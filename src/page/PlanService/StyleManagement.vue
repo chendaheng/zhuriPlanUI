@@ -84,22 +84,23 @@
       <div class="table">
         <el-row :gutter="10">
           <el-col :span="4">
-            <el-button type="primary">添加款号</el-button>
+            <el-button type="primary" @click="addStyle">添加款号</el-button>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary">批量导入</el-button>
+            <el-button type="primary" @click="importStyle">批量导入</el-button>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary">删除款号</el-button>
+            <el-button type="primary" @click="deleteStyle">删除款号</el-button>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary">绑定款式组</el-button>
+            <el-button type="primary" @click="bindStyleGroup">绑定款式组</el-button>
           </el-col>
         </el-row>
         <el-table
           :data="data.tableData"
           max-height="400"
           border
+          @selection-change="changeCheckBoxFun"
           :stripe="true"
           :highlight-current-row="true"
           style="width: 100%; margin-top: 20px">
@@ -230,9 +231,26 @@ export default {
             addTime: "2019-01-01 10:15:01",
             addMethod: "导入",
             styleStatus: "已绑定",
-          }
+          },
+          {
+            index: 1,
+            styleGroupNumber: "KSZ20190101001",
+            styleGroupName: "款式1组",
+            styleNumber: "10190114(CX1902)",
+            rangeNumber: "XL20190101001",
+            customerName: "Qi-Collection",
+            brandName: "Selkie",
+            clothingType: "时装",
+            rangeName: "Fall-2019(07/08/09)",
+            addUser: "刘德华",
+            dept: "业务1组",
+            addTime: "2019-01-01 10:15:01",
+            addMethod: "导入",
+            styleStatus: "已绑定",
+          },
         ]
-      }
+      },
+      multipleSelection: [],
     };
   },
   created: function () {
@@ -250,7 +268,90 @@ export default {
     handleSearch(){
       const that = this;
       console.log('搜索按钮点击');
-    }
+    },
+    // 选择框改变监控
+    changeCheckBoxFun(val){
+      const that = this;
+      that.multipleSelection = val;
+      console.log("changeCheckBox所选中的内容如下");
+      console.log(that.multipleSelection);
+      console.log("changeCheckBox所选中的内容的长度为",that.multipleSelection.length);
+    },
+    // 添加款号
+    addStyle(){
+      const that = this;
+      console.log('添加款号按钮点击');
+      that.$router.push({
+        path: `/PlanService/StyleAdd`,
+      });
+    },
+    // 导入款号
+    importStyle(){
+      const that = this;
+      console.log("批量导入按钮点击");
+      that.$router.push({
+        path: `/PlanService/StyleImport`,
+      });
+    },
+    // 删除款号
+    deleteStyle(){
+      const that = this;
+      console.log('删除款号按钮点击');
+      if(that.multipleSelection.length ===0){
+        this.$message({
+          message: '请选择要删除的款号',
+          type: 'warning'
+        });
+      }
+      else if(that.multipleSelection.length >= 1){
+        console.log("有" + that.multipleSelection.length + "条数据被选中");
+        this.$confirm("删除所选的" + that.multipleSelection.length + "条款式组信息, 是否继续?", "提示", {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          for (var i = 0; i < that.multipleSelection.length; i++){
+            var result = that.multipleSelection[i];
+            var delIndex = result["index"];
+            console.log('delIndex',delIndex);
+            for(var j = 0; j < that.data.tableData.length; j++){
+              var delResult = that.data.tableData[j];
+              if (delResult["index"] === delIndex){
+                that.data.tableData.splice(j,1);
+              }
+            }
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      }
+    },
+    // 绑定款式组
+    bindStyleGroup(){
+      const that = this;
+      console.log('绑定款式组按钮点击');
+      if(that.multipleSelection.length ===0){
+        this.$message({
+          message: '请选择要绑定款式组的款号',
+          type: 'warning'
+        });
+      }
+      else if(that.multipleSelection.length >= 1){
+        that.$router.push({
+          path: `/PlanService/StyleBindStyleGroup`,
+          query: {
+            bindData: that.multipleSelection,
+          }
+        });
+      }
+    },
   }
 }
 </script>
