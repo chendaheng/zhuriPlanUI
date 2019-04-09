@@ -124,11 +124,21 @@ export default {
     store(){
       const that = this;
       console.log("保存按钮点击");
+      this.$message({
+        message: '成功导入系列信息',
+        type: 'success'
+      });
+      // that.$router.push({
+      //   path: `/PlanService/RangeManagement`,
+      // });
     },
     // 取消按钮点击
     cancel(){
       const that = this;
       console.log("取消按钮点击");
+      that.$router.push({
+        path: `/PlanService/RangeManagement`,
+      });
     },
     // 浏览按钮点击
     findFile(){

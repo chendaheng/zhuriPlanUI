@@ -104,7 +104,7 @@
           :highlight-current-row="true"
           style="width: 100%; margin-top: 20px">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column prop="id" label="序号" width="50" align="center"></el-table-column>
+          <el-table-column prop="index" label="序号" width="50" align="center"></el-table-column>
           <el-table-column prop="styleGroupNumber" width="150" label="款式组编号" align="center"></el-table-column>
           <el-table-column prop="styleGroupName" width="130" label="款式组名称" align="center"></el-table-column>
           <el-table-column prop="styleNumber" width="150" label="订单款号" align="center"></el-table-column>
@@ -216,7 +216,7 @@ export default {
       data:{
         tableData:[
           {
-            id: 1,
+            index: 1,
             styleGroupNumber: "KSZ20190101001",
             styleGroupName: "款式1组",
             styleNumber: "10190114(CX1901)",
