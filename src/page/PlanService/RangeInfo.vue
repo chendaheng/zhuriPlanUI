@@ -124,21 +124,44 @@ export default {
           },
         ],
       },
+      controlData: {
+        ifRangeAdd: false,
+        ifRangeChange: false,
+      },
     };
   },
   created: function () {
     const that = this;
-    console.log("进入添加系列页面");
+    console.log("进入系列信息页面");
+    var result = {};
+    result = that.$route.query;
+    if (result.hasOwnProperty("ifRangeAdd")){
+      that.controlData.ifRangeAdd = result["ifRangeAdd"];
+      console.log("当面页面用于添加系列");
+    }
+    if (result.hasOwnProperty("ifRangeChange")){
+      that.controlData.ifRangeChange = result["ifRangeChange"];
+      console.log("当面页面用于修改系列");
+      that.data = result;
+    }
   },
   methods: {
     // 保存按钮点击
     store(){
       const that = this;
       console.log("保存按钮点击");
-      this.$message({
-        message: '成功保存系列信息',
-        type: 'success'
-      });
+      if(that.controlData.ifRangeAdd === true){
+          this.$message({
+          message: '成功保存系列信息',
+          type: 'success'
+        });
+      }
+      if(that.controlData.ifRangeChange === true){
+          this.$message({
+          message: '成功修改系列信息',
+          type: 'success'
+        });
+      }
     },
     // 取消按钮点击
     cancel(){

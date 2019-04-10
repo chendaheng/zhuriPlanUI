@@ -194,6 +194,8 @@ export default {
             addTime: "2019-01-01 10:15:01",
             addMethod: "手动",
             rangeStatus: "已绑定",
+            rangeAmount: "15",
+            rangeNote: "系列备注1",
           },
           {
             index: 2,
@@ -207,6 +209,8 @@ export default {
             addTime: "2018-10-01 09:25:01",
             addMethod: "导入",
             rangeStatus: "已绑定",
+            rangeAmount: "10",
+            rangeNote: "系列备注2",
           },
         ]
       },
@@ -242,9 +246,10 @@ export default {
       const that = this;
       console.log("添加系列按钮点击");
       that.$router.push({
-        path: `/PlanService/RangeAdd`,
-        // query: {
-        // }
+        path: `/PlanService/RangeInfo`,
+        query: {
+          ifRangeAdd: true,
+        }
       });
     },
     // 批量导入
@@ -294,6 +299,51 @@ export default {
           });          
         });
       }
+    },
+    // 表格中的修改
+    changeRangeData(row){
+      const that = this;
+      console.log("点击了本行的修改");
+      that.$router.push({
+        path: `/PlanService/RangeInfo`,
+        query: {
+          ifRangeChange: true,
+          customerName: row.customerName,
+          brandName: row.brandName,
+          clothingType: row.clothingType,
+          rangeName: row.rangeName,
+          rangeAmount: row.rangeAmount,
+          rangeNote: row.rangeNote,
+        }
+      });
+    },
+    // 表格中的删除
+    deleteRangeData(row){
+      const that = this;
+      console.log("点击了本行的删除");
+      console.log("当前row=", row);
+      var thisIndex = row.index;
+      this.$confirm("是否确认删除该系列记录？", "提示", {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          for(var j = 0; j < that.data.tableData.length; j++){
+            var delResult = that.data.tableData[j];
+            if (delResult["index"] === thisIndex){
+              that.data.tableData.splice(j,1);
+            }
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
     },
   }
 }

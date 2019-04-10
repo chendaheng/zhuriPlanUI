@@ -95,12 +95,12 @@ const StockOperationSplit = r => require.ensure([], () => r(require('../page/Sto
 
 // // -------------------------------------------- 逐日计划管理 --------------------------------------------
 const RangeManagement = r => require.ensure([], () => r(require('../page/PlanService/RangeManagement')), 'RangeManagement');
-const RangeAdd = r => require.ensure([], () => r(require('../page/PlanService/RangeAdd')), 'RangeAdd');
+const RangeInfo = r => require.ensure([], () => r(require('../page/PlanService/RangeInfo')), 'RangeInfo');
 const RangeImport = r => require.ensure([], () => r(require('../page/PlanService/RangeImport')), 'RangeImport');
 const StyleGroupManagement = r => require.ensure([], () => r(require('../page/PlanService/StyleGroupManagement')), 'StyleGroupManagement');
-const StyleGroupAdd = r => require.ensure([], () => r(require('../page/PlanService/StyleGroupAdd')), 'StyleGroupAdd');
+const StyleGroupInfo = r => require.ensure([], () => r(require('../page/PlanService/StyleGroupInfo')), 'StyleGroupInfo');
 const StyleManagement = r => require.ensure([], () => r(require('../page/PlanService/StyleManagement')), 'StyleManagement');
-const StyleAdd = r => require.ensure([], () => r(require('../page/PlanService/StyleAdd')), 'StyleAdd');
+const StyleInfo = r => require.ensure([], () => r(require('../page/PlanService/StyleInfo')), 'StyleInfo');
 const StyleImport = r => require.ensure([], () => r(require('../page/PlanService/StyleImport')), 'StyleImport');
 const StyleBindStyleGroup = r => require.ensure([], () => r(require('../page/PlanService/StyleBindStyleGroup')), 'StyleBindStyleGroup');
 // -------------------------------------------- 路由配置部分 --------------------------------------------
@@ -394,12 +394,12 @@ export default [{
           bcrumd: ['计划服务', '系列管理']
         }
       },
-      { // 添加系列
-        path: '/planservice/rangeadd',
-        name: 'RangeAdd',
-        component: RangeAdd,
+      { // 系列信息
+        path: '/planservice/rangeinfo',
+        name: 'RangeInfo',
+        component: RangeInfo,
         meta: {
-          bcrumd: ['计划服务', '添加系列']
+          bcrumd: ['计划服务', '系列信息']
         }
       },
       { // 导入系列
@@ -418,12 +418,12 @@ export default [{
           bcrumd: ['计划服务', '款式组管理']
         }
       },
-      { // 添加款式组
-        path: '/planservice/stylegroupadd',
-        name: 'StyleGroupAdd',
-        component: StyleGroupAdd,
+      { // 款式组信息
+        path: '/planservice/stylegroupinfo',
+        name: 'StyleGroupInfo',
+        component: StyleGroupInfo,
         meta: {
-          bcrumd: ['计划服务', '添加款式组']
+          bcrumd: ['计划服务', '款式组信息']
         }
       },
       { // 款式管理
@@ -434,12 +434,12 @@ export default [{
           bcrumd: ['计划服务', '款式管理']
         }
       },
-      { // 添加款式
-        path: '/planservice/styleadd',
-        name: 'StyleAdd',
-        component: StyleAdd,
+      { // 款式信息
+        path: '/planservice/styleinfo',
+        name: 'StyleInfo',
+        component: StyleInfo,
         meta: {
-          bcrumd: ['计划服务', '添加款式']
+          bcrumd: ['计划服务', '款式信息']
         }
       },
       { // 导入款式

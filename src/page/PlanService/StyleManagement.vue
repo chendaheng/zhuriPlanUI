@@ -282,7 +282,7 @@ export default {
       const that = this;
       console.log('添加款号按钮点击');
       that.$router.push({
-        path: `/PlanService/StyleAdd`,
+        path: `/PlanService/StyleInfo`,
       });
     },
     // 导入款号

@@ -257,7 +257,7 @@ export default {
       const that = this;
       console.log('添加款式组按钮点击');
       that.$router.push({
-        path: `/PlanService/StyleGroupAdd`,
+        path: `/PlanService/StyleGroupInfo`,
       });
     },
     // 删除款式组

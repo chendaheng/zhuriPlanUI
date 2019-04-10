@@ -155,12 +155,12 @@
           计划服务
         </template>
         <el-menu-item index="/planservice/rangemanagement"><i class="el-icon-document"></i>系列管理</el-menu-item>
-        <el-menu-item index="/planservice/rangeadd"><i class="el-icon-document"></i>添加系列</el-menu-item>
+        <el-menu-item index="/planservice/rangeinfo"><i class="el-icon-document"></i>系列信息</el-menu-item>
         <el-menu-item index="/planservice/rangeimport"><i class="el-icon-document"></i>导入系列</el-menu-item>
         <el-menu-item index="/planservice/stylegroupmanagement"><i class="el-icon-document"></i>款式组管理</el-menu-item>
-        <el-menu-item index="/planservice/stylegroupadd"><i class="el-icon-document"></i>添加款式组</el-menu-item>
+        <el-menu-item index="/planservice/stylegroupinfo"><i class="el-icon-document"></i>款式组信息</el-menu-item>
         <el-menu-item index="/planservice/stylemanagement"><i class="el-icon-document"></i>款式管理</el-menu-item>
-        <el-menu-item index="/planservice/styleadd"><i class="el-icon-document"></i>添加款式</el-menu-item>
+        <el-menu-item index="/planservice/styleinfo"><i class="el-icon-document"></i>款式信息</el-menu-item>
         <el-menu-item index="/planservice/styleimport"><i class="el-icon-document"></i>导入款式</el-menu-item>
         <el-menu-item index="/planservice/stylebindstylegroup"><i class="el-icon-document"></i>绑定款式组</el-menu-item>
       </el-submenu>
