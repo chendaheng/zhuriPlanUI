@@ -128,9 +128,6 @@ export default {
         message: '成功导入系列信息',
         type: 'success'
       });
-      // that.$router.push({
-      //   path: `/PlanService/RangeManagement`,
-      // });
     },
     // 取消按钮点击
     cancel(){

@@ -115,9 +115,9 @@
           <el-table-column prop="addTime" width="170" label="添加时间" align="center"></el-table-column>
           <el-table-column label="操作" width="150" min-width="100" align="center">
             <template slot-scope="scope">
-              <el-button @click="getRangeData(scope.row)" type="text" size="small">查看</el-button>
-              <el-button @click="changeRangeData(scope.row)" type="text" size="small">修改</el-button>
-              <el-button @click="deleteRangeData(scope.row)" type="text" size="small">删除</el-button>
+              <el-button @click="getStyleGroupData(scope.row)" type="text" size="small">查看</el-button>
+              <el-button @click="changeStyleGroupData(scope.row)" type="text" size="small">修改</el-button>
+              <el-button @click="deleteStyleGroupData(scope.row)" type="text" size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -233,9 +233,25 @@ export default {
     console.log('进入系列管理页面');
   },
   methods: {
+    // 改变日期格式
+    changeDate(date){
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      m = m < 10 ? ('0' + m) : m;
+      var d = date.getDate();
+      d = d < 10 ? ('0' + d) : d;
+      var h = date.getHours();
+      var minute = date.getMinutes();
+      minute = minute < 10 ? ('0' + minute) : minute;
+      var second= date.getSeconds();
+      second = minute < 10 ? ('0' + second) : second;
+      return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;
+    },
+    // 每页条数改变时触发函数
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
+    // 当前页码改变时触发函数
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
@@ -247,10 +263,32 @@ export default {
       console.log(that.multipleSelection);
       console.log("changeCheckBox所选中的内容的长度为",that.multipleSelection.length);
     },
+    // 搜集搜索条件
+    collectSearchOptions(){ 
+      const that = this;
+      let searchCondition = {};
+      for (let key in that.searchOptions.searchParams){
+        if (that.searchOptions.searchParams[key] !== "") {
+          if (key == "dateRange"){
+            var dateRange = that.searchOptions.searchParams[key];
+            var DateStart = that.changeDate(dateRange[0]);
+            searchCondition["DateStart"] = DateStart;
+            var DateEnd = that.changeDate(dateRange[1]);
+            searchCondition["DateEnd"] = DateEnd;
+          }
+          else{
+            searchCondition[key] = that.searchOptions.searchParams[key];
+          }
+        }
+      }
+      console.log("当前搜索条件", searchCondition);
+      return searchCondition;
+    },
     // 搜索按钮点击
     handleSearch(){
       const that = this;
       console.log('搜索按钮点击');
+      let searchConditionParams = that.collectSearchOptions();
     },
     // 添加款式组
     addStyleGroup(){
@@ -258,6 +296,9 @@ export default {
       console.log('添加款式组按钮点击');
       that.$router.push({
         path: `/PlanService/StyleGroupInfo`,
+        query: {
+          ifStyleGroupAdd: true,
+        }
       });
     },
     // 删除款式组
@@ -276,7 +317,8 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(() => {
+        })
+        .then(() => {
           for (var i = 0; i < that.multipleSelection.length; i++){
             var result = that.multipleSelection[i];
             var delIndex = result["index"];
@@ -292,7 +334,8 @@ export default {
             type: 'success',
             message: '删除成功!'
           });
-        }).catch(() => {
+        })
+        .catch(() => {
           this.$message({
             type: 'info',
             message: '已取消删除'
@@ -316,12 +359,14 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(() => {
+        })
+        .then(() => {
           this.$message({
             type: 'success',
             message: '解绑成功!'
           });
-        }).catch(() => {
+        })
+        .catch(() => {
           this.$message({
             type: 'info',
             message: '已取消解绑'
@@ -329,6 +374,52 @@ export default {
         });
       }
     },
+    // 表格中的修改
+    changeStyleGroupData(row){
+      const that = this;
+      console.log("点击了本行的修改");
+      that.$router.push({
+        path: `/PlanService/StyleGroupInfo`,
+        query: {
+          ifStyleGroupChange: true,
+          customerName: row.customerName,
+          brandName: row.brandName,
+          clothingType: row.clothingType,
+          rangeName: row.rangeName,
+          styleGroupName: row.styleGroupName,
+        }
+      });
+    },
+    // 表格中的删除
+    deleteStyleGroupData(row){
+      const that = this;
+      console.log("点击了本行的删除");
+      console.log("当前row=", row);
+      var thisIndex = row.index;
+      this.$confirm("是否确认删除该款式组？", "提示", {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+      .then(() => {
+        for(var j = 0; j < that.data.tableData.length; j++){
+          var delResult = that.data.tableData[j];
+          if (delResult["index"] === thisIndex){
+            that.data.tableData.splice(j,1);
+          }
+        }
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      }).
+      catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });          
+      });
+    }
   }
 }
 </script>

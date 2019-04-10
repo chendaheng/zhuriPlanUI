@@ -152,7 +152,7 @@ export default {
       console.log("保存按钮点击");
       if(that.controlData.ifRangeAdd === true){
           this.$message({
-          message: '成功保存系列信息',
+          message: '成功新增系列信息',
           type: 'success'
         });
       }

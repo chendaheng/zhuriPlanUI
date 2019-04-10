@@ -136,21 +136,44 @@ export default {
           },
         ],
       },
+      controlData: {
+        ifStyleGroupAdd: false,
+        ifStyleGroupChange: false,
+      },
     };
   },
   created: function () {
     const that = this;
-    console.log("进入添加款式组页面");
+    console.log("进入款式组信息页面");
+    var result = {};
+    result = that.$route.query;
+    if (result.hasOwnProperty("ifStyleGroupAdd")){
+      that.controlData.ifStyleGroupAdd = result["ifStyleGroupAdd"];
+      console.log("当面页面用于添加款式组");
+    }
+    if (result.hasOwnProperty("ifStyleGroupChange")){
+      that.controlData.ifStyleGroupChange = result["ifStyleGroupChange"];
+      console.log("当面页面用于修改款式组");
+      that.data = result;
+    }
   },
   methods: {
     // 保存按钮点击
     store(){
       const that = this;
       console.log("保存按钮点击");
-      this.$message({
-        message: '成功保存款式组信息',
-        type: 'success'
-      });
+      if(that.controlData.ifStyleGroupAdd === true){
+          this.$message({
+          message: '成功新增款式组信息',
+          type: 'success'
+        });
+      }
+      if(that.controlData.ifStyleGroupChange === true){
+          this.$message({
+          message: '成功修改款式组信息',
+          type: 'success'
+        });
+      }
     },
     // 取消按钮点击
     cancel(){
